@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo/zion_logo.png" alt="ZION TerraNova" width="200"/>
+  <img src="assets/logo/Z.gif" alt="ZION TerraNova" width="200"/>
 </p>
 
 <h1 align="center">🌟 ZION TerraNova v2.9 "Quantum Leap" 🌟</h1>
