@@ -35,28 +35,104 @@
 - CPU/GPU toggle
 - Thread optimization
 
-## Quick Start
+## 📦 Installation & Setup
 
-### Development
+### Prerequisites
+
+**1. Node.js & npm**
 ```bash
+# Check version (need 16.x or higher)
+node --version
+npm --version
+
+# If not installed, download from: https://nodejs.org
+```
+
+**2. Python 3.10+**
+```bash
+# Check version
+python3 --version
+
+# The miner backend requires Python
+```
+
+**3. Build Tools**
+
+**macOS:**
+```bash
+xcode-select --install
+```
+
+**Windows:**
+```bash
+# Install Visual Studio Build Tools
+# https://visualstudio.microsoft.com/downloads/
+# Select "Desktop development with C++"
+```
+
+**Linux:**
+```bash
+sudo apt-get install build-essential
+```
+
+---
+
+## 🚀 Quick Start
+
+### 1. Clone & Install
+
+```bash
+# Navigate to desktop-agent folder
 cd desktop-agent
+
+# Install dependencies
 npm install
+
+# Install Python requirements
+cd resources
+pip3 install -r requirements.txt
+cd ..
+```
+
+### 2. Run in Development Mode
+
+```bash
+# Start the app (hot-reload enabled)
 npm start
 ```
 
-### Build Release
+**First-time setup:**
+1. Enter your ZION wallet address
+2. Set pool: `pool.zionterranova.com:3333`
+3. Choose worker name (e.g., `my-rig-01`)
+4. Select CPU/GPU and threads
+5. Click "Start Mining" ⛏️
+
+### 3. Build Production Release
+
+**macOS:**
 ```bash
-# Windows
-npm run build:win
-
-# macOS
 npm run build:mac
-
-# Linux
-npm run build:linux
+# Output: dist/ZION-Desktop-Agent-2.9.0.dmg
 ```
 
-## Configuration
+**Windows:**
+```bash
+npm run build:win
+# Output: dist/ZION-Desktop-Agent-Setup-2.9.0.exe
+```
+
+**Linux:**
+```bash
+npm run build:linux
+# Output: dist/ZION-Desktop-Agent-2.9.0.AppImage
+```
+
+---
+
+## ⚙️ Configuration
+
+### Settings Overview
 
 On first launch, configure your settings:
 
@@ -112,14 +188,137 @@ desktop-agent/
 - Mining uptime
 - Consciousness level & XP
 
-## Development
+---
+
+## 🔧 Troubleshooting
+
+### Issue: "Python not found"
+
+**Solution:**
+```bash
+# macOS/Linux
+which python3
+# Add to PATH if needed
+
+# Windows
+where python
+# Install from python.org if missing
+```
+
+### Issue: "Native module failed to load"
+
+**Solution:**
+```bash
+# Rebuild native modules
+cd desktop-agent
+npm rebuild
+```
+
+### Issue: "Miner won't start"
+
+**Check:**
+1. Python is installed (`python3 --version`)
+2. Requirements installed (`pip3 install -r resources/requirements.txt`)
+3. Miner script exists (`resources/zion_native_miner_v2_9.py`)
+4. Valid wallet address (starts with `ZION_`)
+
+**Logs location:**
+- **macOS**: `~/Library/Logs/ZION-Desktop-Agent/`
+- **Windows**: `%APPDATA%\ZION-Desktop-Agent\logs\`
+- **Linux**: `~/.config/ZION-Desktop-Agent/logs/`
+
+### Issue: "GPU not detected"
+
+**Solution:**
+```bash
+# Check GPU drivers
+# NVIDIA: nvidia-smi
+# AMD: rocm-smi
+
+# Install CUDA/ROCm if needed
+```
+
+### Issue: "App won't build"
+
+**macOS:**
+```bash
+# Sign with Apple Developer cert
+export CSC_IDENTITY_AUTO_DISCOVERY=false
+npm run build:mac
+```
+
+**Windows:**
+```bash
+# Disable code signing temporarily
+set CSC_IDENTITY_AUTO_DISCOVERY=false
+npm run build:win
+```
+
+---
+
+## 📚 Advanced Usage
+
+### Custom Miner Configuration
+
+Edit `resources/config.json`:
+```json
+{
+  "algorithm": "cosmic_harmony",
+  "threads": 4,
+  "gpu": true,
+  "log_level": "info"
+}
+```
+
+### Command-Line Mining (without GUI)
+
+```bash
+cd resources
+python3 zion_native_miner_v2_9.py \
+  --pool pool.zionterranova.com:3333 \
+  --wallet YOUR_ZION_ADDRESS \
+  --worker my-worker
+```
+
+---
+
+## 🛠️ Development
 
 Built with:
 - **Electron** 34.0.0 - Desktop framework
 - **electron-builder** - Packaging
 - **Native HTML/CSS/JS** - No heavy frameworks
 
-## License
+### Development Scripts
+
+```bash
+npm start         # Run in dev mode
+npm run build     # Build for current platform
+npm run build:all # Build for all platforms (Mac only)
+npm run lint      # Check code style
+```
+
+### Project Structure
+
+```
+desktop-agent/
+├── src/
+│   ├── main.js          # Electron main (Node.js)
+│   ├── preload.js       # IPC bridge
+│   ├── wallet-generator.js # ZION wallet utils
+│   └── ui/
+│       ├── index.html   # Main UI
+│       └── renderer.js  # UI logic (browser context)
+├── resources/
+│   ├── zion_native_miner_v2_9.py  # Python miner
+│   ├── requirements.txt           # Python deps
+│   └── mining/          # Native libs (compile needed)
+└── package.json         # Electron config
+```
+
+---
+
+## 📜 License
 
 MIT - See LICENSE file
 
