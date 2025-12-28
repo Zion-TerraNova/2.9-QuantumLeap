@@ -1,0 +1,86 @@
+(* ZQAL Grammar v0.2.0 - Extended with Quantum & Tone Integration *)
+
+program        = { import_stmt } , { decl } ;
+
+(* Imports *)
+import_stmt    = "import" , string , [ "as" , ident ] , ";" ;
+from_import    = "from" , string , "import" , ident , { "," , ident } , ";" ;
+
+(* Declarations *)
+decl           = algorithm_decl | const_decl | type_decl | fn_decl
+               | quantum_decl | tone_decl | tone_bind ;
+
+algorithm_decl = "@algorithm" , ident , "{" , { meta_kv } , "}" ;
+meta_kv        = ident , ":" , value ;
+
+const_decl     = "const" , ident , ":" , type , "=" , literal , ";" ;
+
+type_decl      = ("quantum" , ident , "[" , number , "]" , ":" , type)
+                | ("type" , ident , "=" , type) , ";" ;
+
+(* Quantum *)
+quantum_decl   = "quantum" , ident , "[" , number , "]" , ":" , type , ";" ;
+quantum_op     = "entangle" | "collapse" | "superpose" | "measure" ;
+
+(* Tones *)
+tone_decl      = "@tone" , number , "{" , { tone_prop } , "}" ;
+tone_prop      = ident , ":" , value ;
+tone_bind      = "@bind_tone" , number , "to" , ident ;
+
+(* Functions *)
+fn_decl        = (kernel_fn | validator_fn | reward_fn) ;
+
+kernel_fn      = "@kernel" , "fn" , ident , "(" , params? , ")" , "->" , type , block ;
+validator_fn   = "@validator" , "fn" , ident , "(" , params? , ")" , "->" , type , block ;
+reward_fn      = "@reward" , "fn" , ident , "(" , params? , ")" , "->" , type , block ;
+
+params         = param , { "," , param } ;
+param          = ident , ":" , type ;
+
+block          = "{" , { stmt } , "}" ;
+
+(* Statements *)
+stmt           = let_stmt | assign_stmt | for_stmt | if_stmt | return_stmt
+               | expr_stmt | assert_stmt | try_stmt | throw_stmt ;
+
+let_stmt       = "let" , ident , "=" , expr , ";" ;
+assign_stmt    = ident , "=" , expr , ";" ;
+for_stmt       = "for" , ident , "in" , number , ".." , number , block ;
+if_stmt        = "if" , expr , block , [ "else" , block ] ;
+return_stmt    = "return" , expr , ";" ;
+expr_stmt      = expr , ";" ;
+
+(* Error Handling *)
+assert_stmt    = "assert" , expr , [ "," , string ] , ";" ;
+try_stmt       = "try" , block , "catch" , "(" , ident , ")" , block ;
+throw_stmt     = "throw" , expr , ";" ;
+
+(* Expressions *)
+expr           = quantum_expr | tone_call | primary , { op , primary } ;
+quantum_expr   = primary , { quantum_op , primary } ;
+tone_call      = "apply_tone" , "(" , number , "," , expr , ")" ;
+
+primary        = ident | literal | call | index | paren ;
+call           = ident , "(" , [ args ] , ")" ;
+args           = expr , { "," , expr } ;
+index          = ident , "[" , expr , "]" ;
+paren          = "(" , expr , ")" ;
+
+op             = "+" | "-" | "*" | "/" | "^" | "&" | "|" | "==" | "<=" | ">=" | "<" | ">" ;
+
+(* Types *)
+type           = "u32" | "u64" | "f32" | "f64" | "bytes" | "bytes80" | "hash32"
+               | "bool" | array_type | ref_type | quantum_type ;
+array_type     = "[" , type , ";" , number , "]" ;
+ref_type       = "&" , "mut"? , type ;
+quantum_type   = "quantum" , "[" , number , "]" , type ;
+
+(* Lexical *)
+ident          = letter , { letter | digit | "_" } ;
+number         = digit , { digit | "_" } ;
+literal        = number | string ;
+string         = '"' , { ? any ? } , '"' ;
+letter         = ? letter ? ;
+digit          = ? digit ? ;
+value          = string | number | list ;
+list           = "[" , [ value , { "," , value } ] , "]" ;

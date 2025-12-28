@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "handshake",
+  "type": "object",
+  "required": ["type", "data"],
+  "properties": {
+    "type": {"const": "handshake"},
+    "data": {
+      "type": "object",
+      "properties": {
+        "node_id": {"type": "string"},
+        "version": {"type": "string"},
+        "timestamp": {"type": "integer"},
+        "port": {"type": "integer"}
+      },
+      "required": ["node_id", "version", "port"]
+    },
+    "timestamp": {"type": "number"},
+    "sender": {"type": "string"}
+  }
+}

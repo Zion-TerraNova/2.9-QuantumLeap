@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "peers",
+  "type": "object",
+  "required": ["type", "data"],
+  "properties": {
+    "type": {"const": "peers"},
+    "data": {
+      "type": "object",
+      "properties": {
+        "peers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["host", "port"],
+            "properties": {
+              "host": {"type": "string"},
+              "port": {"type": "integer"}
+            }
+          }
+        }
+      },
+      "required": ["peers"]
+    },
+    "timestamp": {"type": "number"},
+    "sender": {"type": "string"}
+  }
+}

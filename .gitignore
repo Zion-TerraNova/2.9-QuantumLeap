@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.env
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Secrets
+*.key
+*.pem
+*.p12
+*.keystore
+
+# Data
+*.db
+*.sqlite
+*.sqlite3
