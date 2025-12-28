@@ -152,7 +152,8 @@ result = job.wait()
 
 | Folder | Description |
 |--------|-------------|
-| \`miner/\` | Python Stratum miner (ready to use) |
+| `miner/` | Python Stratum miner (ready to use) |
+| `desktop-agent/` | Electron desktop mining app |
 | \`native-libs/\` | C++ mining algorithms (high-performance) |
 | \`qdl/\` | Quantum Data Language SDK |
 | \`zqal-sdk/\` | Quantum Algorithm Language |

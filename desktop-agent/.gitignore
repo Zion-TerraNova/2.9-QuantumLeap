@@ -1,0 +1,18 @@
+# Node/Electron
+node_modules/
+dist/
+release/
+out/
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# Platform-specific binaries
+resources/zion_native_miner_v2_9.exe
+resources/zion_native_miner_v2_9_macos
+resources/mining/*.so*
+resources/mining/*.dylib
+resources/ai/*.lib

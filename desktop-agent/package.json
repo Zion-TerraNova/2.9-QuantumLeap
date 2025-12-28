@@ -1,0 +1,85 @@
+{
+  "name": "zion-desktop-agent",
+  "version": "2.9.1",
+  "description": "ZION TerraNova Desktop Mining Agent - Professional mining software with consciousness evolution",
+  "homepage": "https://zionterranova.com",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "NODE_ENV=development electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win --x64",
+    "build:win:portable": "electron-builder --win portable --x64",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux --x64",
+    "build:all": "electron-builder --mac --win --linux --x64"
+  },
+  "keywords": ["zion", "blockchain", "mining", "cryptocurrency", "consciousness"],
+  "author": {
+    "name": "ZION TerraNova",
+    "email": "support@zionterranova.com",
+    "url": "https://zionterranova.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.zionterranova.desktop-agent",
+    "productName": "ZION Miner",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/",
+        "to": ".",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "src/assets/tray-icon.png",
+        "to": "tray-icon.png"
+      },
+      {
+        "from": "src/assets/icon.png",
+        "to": "icon.png"
+      }
+    ],
+    "win": {
+      "target": ["portable", "zip"],
+      "icon": "src/assets/icon.png",
+      "signAndEditExecutable": false,
+      "artifactName": "zion-desktop-agent-v${version}-windows-${arch}.${ext}"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "src/assets/icon.icns",
+      "category": "public.app-category.utilities"
+    },
+    "dmg": {
+      "icon": "src/assets/icon.icns"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "src/assets/icon.png",
+      "category": "Utility",
+      "maintainer": "ZION TerraNova <support@zionterranova.com>",
+      "synopsis": "ZION Miner desktop agent",
+      "description": "Native mining client with consciousness gamification"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
