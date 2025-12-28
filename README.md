@@ -66,7 +66,35 @@ python zion_miner.py --config config.json
 
 ---
 
-## 🔧 Mining Algorithms
+## �️ Desktop Mining App
+
+Prefer a GUI? Use our **Electron Desktop Agent**:
+
+```bash
+cd desktop-agent
+npm install
+npm start
+```
+
+**Features:**
+- ✨ One-click mining start/stop
+- 📊 Real-time hashrate & stats
+- 🎮 Consciousness level tracking
+- 🖥️ System tray integration
+- 🔧 Easy wallet & pool configuration
+
+**Build for your platform:**
+```bash
+npm run build:mac   # macOS .dmg
+npm run build:win   # Windows .exe
+npm run build:linux # Linux .AppImage
+```
+
+📁 See [desktop-agent/README.md](desktop-agent/README.md) for full setup guide.
+
+---
+
+## �🔧 Mining Algorithms
 
 | Algorithm | Type | Hardware | Hashrate |
 |-----------|------|----------|----------|
@@ -153,13 +181,14 @@ result = job.wait()
 | Folder | Description |
 |--------|-------------|
 | `miner/` | Python Stratum miner (ready to use) |
-| `desktop-agent/` | Electron desktop mining app |
-| \`native-libs/\` | C++ mining algorithms (high-performance) |
-| \`qdl/\` | Quantum Data Language SDK |
-| \`zqal-sdk/\` | Quantum Algorithm Language |
-| \`node-skeleton/\` | P2P node framework |
-| \`golden-egg/\` | Treasure hunt game (1.75B ZION prize) |
-| \`docs/\` | Full documentation |
+| `desktop-agent/` | Electron desktop mining app with GUI |
+| `native-libs/` | C++ mining algorithms (high-performance) |
+| `qdl/` | Quantum Data Language SDK |
+| `zqal-sdk/` | Quantum Algorithm Language |
+| `node-skeleton/` | P2P node framework |
+| `golden-egg/` | Treasure hunt game (1.75B ZION prize) |
+| `docs/` | Full documentation |
+| `assets/` | Logos and brand assets |
 
 ---
 
